@@ -44,6 +44,13 @@ spring:
     password:
 ```
 
+* Also ensure that the following table is created the above schema.
+
+```sql
+CREATE TABLE shedlock(name VARCHAR(64) NOT NULL, lock_until TIMESTAMP(3) NOT NULL,
+    locked_at TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3), locked_by VARCHAR(255) NOT NULL, PRIMARY KEY (name));
+```
+
 * Creating a scheduler configuration to enable shedlock and configuring a lock provider. In this example we use JdbcTemplateLockProvider since we are persisting the state in the DB.
 
 ```java
